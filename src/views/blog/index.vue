@@ -1,10 +1,12 @@
 <template>
-
+  <div>
+    Hello World!
+  </div>
 </template>
 
 <script>
 export default {
-  name: "index.vue"
+  name: 'Blog'
 }
 </script>
 
