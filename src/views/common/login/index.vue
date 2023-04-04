@@ -31,7 +31,6 @@ export default {
       loginForm: {
         username: 'admin', // 用户名
         password: '123456', // 密码
-        captcha: '' // 验证码
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],

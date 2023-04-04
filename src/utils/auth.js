@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'mall4cloud-Admin-Token'
+const TokenKey = 'adelyn-blog-Token'
 
 export function getToken() {
   return Cookies.get(TokenKey)

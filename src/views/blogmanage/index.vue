@@ -1,62 +1,38 @@
 <template>
-  <div  class="m-container-small m-padded-tb-big">
-    <div class="ui container">
-      <div  class="ui secondary segment form">
-        <div class="inline fields">
-          <div class="field">
-            <input type="text" name="title" placeholder="标题">
-          </div>
-          <div class="field">
-            <button  type="button" id="search-btn" class="ui mini teal basic button"><i class="search icon"></i>搜索</button>
-          </div>
-        </div>
-      </div>
-      <div id="table-container">
-        <table class="ui compact teal table">
-          <thead>
-          <tr>
-            <th>标题</th>
-            <th>分类</th>
-            <th>推荐</th>
-            <th>状态</th>
-            <th>更新时间</th>
-            <th>操作</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>
-              <a href="#" class="ui mini teal basic button">编辑</a>
-              <a href="#" class="ui mini red basic button">删除</a>
-            </td>
-          </tr>
-          </tbody>
-          <tfoot>
-          <tr>
-            <th colspan="7">
-              <div class="ui mini pagination menu" >
-                <a class="item">上一页</a>
-                <a class="item">下一页</a>
-              </div>
-              <a href="#" class="ui mini right floated teal basic button">新增</a>
-            </th>
-          </tr>
-          </tfoot>
-        </table>
-
-
-      </div>
-
-    </div>
-  </div>
+  <el-container>
+    <el-header>
+      <Header/>
+    </el-header>
+    <el-main class="main">
+      <Search/>
+    </el-main>
+    <el-main class="main">
+      <Blogs/>
+    </el-main>
+    <el-footer class="footer">
+      <Footer/>
+    </el-footer>
+  </el-container>
 </template>
 
 <script>
+import Header from './header/index.vue'
+import Search from './search/index.vue'
+import Blogs from './blogs/index.vue'
+import Footer from '@/components/footer/index.vue'
+
 export default {
-  name: "index.vue"
+  name: 'BlogManage',
+  components: { Header, Search, Blogs, Footer }
 }
 </script>
 
 <style scoped>
+.main {
+  background-color: #ecf5ff;
+}
 
+.footer {
+  background-color: #d9ecff;
+}
 </style>
