@@ -1,23 +1,24 @@
 <template>
   <el-menu
-      :default-active="activeIndex"
       class="el-menu-demo"
       mode="horizontal"
       :ellipsis="false"
-      @select="handleSelect"
   >
     <el-menu-item index="0">Adelyn</el-menu-item>
     <div class="flex-grow" />
-    <el-menu-item index="1">个人空间</el-menu-item>
+    <el-menu-item index="1" @click="blogManage">个人空间</el-menu-item>
   </el-menu>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
+<script>
 
-const activeIndex = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+export default {
+  components: {},
+  methods: {
+    blogManage(){
+      this.$router.push({ path: '/manage' })
+    }
+  }
 }
 </script>
 

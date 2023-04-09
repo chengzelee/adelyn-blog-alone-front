@@ -1,8 +1,22 @@
 <template>
+  <el-row :gutter="10" align="middle" justify="center">
+    <el-col :span="8">
+      <el-input
+          v-model="searchString"
+          class="w-50 m-2"
+          size="large"
+          placeholder="search"
+          :prefix-icon="Search"
+      />
+    </el-col>
+    <el-col :span="1">
+      <el-button type="primary" :icon="Search" @click="searchBlog">Search</el-button>
+    </el-col>
+  </el-row>
   <el-row align="middle" justify="center">
     <el-col :span="24">
       <div v-for="o in 10" :key="o">
-        <el-row align="middle" justify="center">
+        <el-row align="middle" justify="center" @click="blogContent">
           <el-col :span="14">
             <el-card class="card-box" shadow="hover">
               <div class="card-head">head</div>
@@ -23,9 +37,21 @@
 
 <script>
 import Pagination from '@/components/pagination/index.vue'
+import { ref } from 'vue'
+import { Search } from '@element-plus/icons-vue'
+
+const searchString = ref('')
 
 export default {
-  components : { Pagination }
+  components : { Search, Pagination },
+  methods: {
+    searchBlog(){
+
+    },
+    blogContent(){
+      this.$router.push({ path: '/blogContent' })
+    }
+  }
 }
 </script>
 

@@ -8,7 +8,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tinymce/tinymce-vue": "^5.1.0",
     "element-plus": "^2.3.0",
+    "tinymce": "^6.4.1",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },

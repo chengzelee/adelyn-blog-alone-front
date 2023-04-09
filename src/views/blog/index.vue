@@ -4,10 +4,7 @@
       <Header/>
     </el-header>
     <el-main class="main">
-      <Search/>
-    </el-main>
-    <el-main class="main">
-      <Blogs/>
+      <router-view/>
     </el-main>
     <el-footer class="footer">
       <Footer/>
@@ -17,13 +14,12 @@
 
 <script>
 import Header from './header/index.vue'
-import Search from './search/index.vue'
 import Blogs from './blogs/index.vue'
 import Footer from '@/components/footer/index.vue'
 
 export default {
   name: 'Blog',
-  components: { Header, Search, Blogs, Footer }
+  components: { Header, Blogs, Footer }
 }
 </script>
 
