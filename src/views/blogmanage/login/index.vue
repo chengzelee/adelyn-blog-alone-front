@@ -3,39 +3,49 @@
     <el-form
         :label-position="labelPosition"
         label-width="100px"
-        :model="user"
+        :model="userInfo"
         style="max-width: 460px"
     >
       <el-form-item label="name">
-        <el-input v-model="user.name" />
+        <el-input v-model="userInfo.principal" />
       </el-form-item>
       <el-form-item label="password">
         <el-input
-            v-model="user.password"
+            v-model="userInfo.credentials"
             type="password"
             show-password
+            @keyup.enter="userLogin"
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="login">login</el-button>
+        <el-button type="primary" @click="userLogin">login</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
-<script lang="ts" setup>
-import { reactive, ref } from 'vue'
+<script setup>
+import * as userApi from '@/api/blogmanage/user.js'
+import { setToken } from '@/utils/auth.js'
+import router from '@/router'
 
-const labelPosition = ref('right')
+let userInfo = {
+      principal: '',
+      credentials: ''
+    }
 
-const login = () => {
-  console.log('submit!')
+let labelPosition = 'right'
+
+const userLogin = () => {
+  userApi.login({principal: userInfo.principal, credentials: userInfo.credentials}).then(
+      (res) => {
+        console.log("res: " + res.accessToken)
+        setToken(res.accessToken)
+        router.push({ path: '/manage' })
+      }
+  )
 }
 
-const user = reactive({
-  name: '',
-  password: ''
-})
 </script>
 
 <style>

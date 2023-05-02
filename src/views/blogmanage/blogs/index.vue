@@ -10,7 +10,7 @@
       />
     </el-col>
     <el-col :span="1">
-      <el-button type="primary" :icon="Search">Search</el-button>
+      <el-button type="primary" :icon="Search" @click="searchUserBlog">Search</el-button>
     </el-col>
   </el-row>
   <el-row align="middle" justify="center">
@@ -51,7 +51,15 @@ import { Search } from '@element-plus/icons-vue'
 const searchString = ref('')
 
 export default {
-  components : { Pagination }
+  components : { Search, Pagination },
+  methods: {
+    searchUserBlog(){
+
+    },
+    blogContent(){
+      this.$router.push({ path: '/blogContent' })
+    }
+  }
 }
 
 const editBlog = () => {

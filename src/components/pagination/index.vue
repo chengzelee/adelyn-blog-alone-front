@@ -1,14 +1,14 @@
 <template>
   <div class="pagination-block">
     <el-pagination
-        v-model:current-page="currentPage2"
-        v-model:page-size="pageSize2"
-        :page-sizes="[100, 200, 300, 400]"
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        :page-sizes="[10, 20, 30, 40]"
         :small="small"
         :disabled="disabled"
         :background="background"
         layout="sizes, prev, pager, next"
-        :total="1000"
+        :total="totalCount"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
     />
@@ -17,18 +17,32 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const currentPage2 = ref(5)
-const pageSize2 = ref(100)
+const currentPage = ref(1)
+const pageSize = ref(10)
+const totalCount = ref(10)
 const small = ref(false)
 const background = ref(false)
 const disabled = ref(false)
 
+const getPageEmit = defineEmits(['getPage'])
+
 const handleSizeChange = (val: number) => {
-  console.log(`${val} items per page`)
+  getPageEmit('getPage')
+  // console.log(`${val} items per page`)
 }
+
 const handleCurrentChange = (val: number) => {
-  console.log(`current page: ${val}`)
+  getPageEmit('getPage')
+  // console.log(`current page: ${val}`)
 }
+
+defineExpose({
+  currentPage,
+  pageSize,
+  totalCount,
+  handleSizeChange,
+  handleCurrentChange
+});
 </script>
 
 <style scoped>
