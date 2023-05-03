@@ -41,7 +41,7 @@ import Pagination from '@/components/pagination/index.vue'
 import {ref, onMounted } from 'vue'
 import router from '@/router'
 import { Search } from '@element-plus/icons-vue'
-import * as blogApi from '/src/api/blog/blog.js'
+import * as blogApi from '@/api/blog/blog.js'
 
 const searchString = ref('')
 
@@ -67,8 +67,12 @@ const getPage = () => {
 }
 
 const blogContent = (blogId) => {
-  console.log(blogId)
-  router.push({ path: '/blogContent' })
+  router.push({
+    path: '/blogContent',
+    query: {
+      blogId: blogId
+    }
+  })
 }
 
 </script>

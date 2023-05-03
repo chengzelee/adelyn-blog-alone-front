@@ -34,6 +34,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      '/blog/search': {
+        target: 'http://127.0.0.1:8004',
+        changeOrigin: true,
+        secure: false,
+      },
       // '/api2': {
       //   // 后台地址
       //   target: 'http://127.0.0.1:8956/',

@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import * as userApi from '@/api/blogmanage/user.js'
+import * as authApi from '@/api/common/auth.js'
 import { setToken } from '@/utils/auth.js'
 import router from '@/router'
 
@@ -37,9 +37,8 @@ let userInfo = {
 let labelPosition = 'right'
 
 const userLogin = () => {
-  userApi.login({principal: userInfo.principal, credentials: userInfo.credentials}).then(
+  authApi.login({principal: userInfo.principal, credentials: userInfo.credentials}).then(
       (res) => {
-        console.log("res: " + res.accessToken)
         setToken(res.accessToken)
         router.push({ path: '/manage' })
       }

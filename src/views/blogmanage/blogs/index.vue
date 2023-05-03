@@ -15,16 +15,13 @@
   </el-row>
   <el-row align="middle" justify="center">
     <el-col :span="24">
-      <div v-for="o in 5" :key="o">
-        <el-row gutter="6" align="middle" justify="center">
+      <div v-for="blog in blogList" :key="blog.blogId">
+        <el-row align="middle" justify="center" @click="blogContent(blog.blogId)">
           <el-col :span="12">
             <el-card class="card-box" shadow="hover">
-              <div class="card-head">head</div>
+              <div class="card-head">{{blog.blogTitle}}</div>
               <div class="card-body">
-                <el-text truncated>Squeezed by parent elementtttttttttttttttttttttttttttttttttttttttt
-                  ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
-                  tttttttttt
-                </el-text>
+                <el-text truncated><p>aaa</p></el-text>
               </div>
             </el-card>
           </el-col>
@@ -39,35 +36,49 @@
     </el-col>
   </el-row>
   <el-row align="middle" justify="center">
-    <el-col :span="3"><Pagination/></el-col>
+    <el-col :span="3">
+      <Pagination @getPage="getPage" ref="pagination"></Pagination>
+    </el-col>
   </el-row>
 </template>
 
-<script>
+<script setup>
 import Pagination from '@/components/pagination/index.vue'
-import { ref } from 'vue'
+import {ref, onMounted } from 'vue'
+import router from '@/router'
 import { Search } from '@element-plus/icons-vue'
+import * as blogApi from '@/api/blog/blog.js'
 
 const searchString = ref('')
 
-export default {
-  components : { Search, Pagination },
-  methods: {
-    searchUserBlog(){
+onMounted(() => {
+  getPage()
+})
 
-    },
-    blogContent(){
-      this.$router.push({ path: '/blogContent' })
-    }
+const blogList = ref([]);
+const pagination = ref()
+
+const getPage = () => {
+  let page = {
+    pageNum: pagination.value.currentPage,
+    pageSize: pagination.value.pageSize
   }
+
+  blogApi.getPage({pageDTO: page} ).then(
+      (res) => {
+        pagination.value.totalCount = res.total
+        blogList.value = res.list
+      }
+  )
 }
 
-const editBlog = () => {
-  console.log('submit!')
-}
-
-const deleteBlog = () => {
-  console.log('submit!')
+const blogContent = (blogId) => {
+  router.push({
+    path: '/blogContent',
+    query: {
+      blogId: blogId
+    }
+  })
 }
 </script>
 

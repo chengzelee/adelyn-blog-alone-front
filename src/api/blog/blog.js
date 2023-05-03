@@ -10,3 +10,11 @@ export function getPage(pageParam) {
         data: pageParam
     })
 }
+
+export function getBlogContent(blogParam) {
+    return request({
+        url: '/search/blogContent',
+        method: 'get',
+        params: blogParam
+    })
+}

@@ -1,13 +1,13 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'adelyn-blog-Token'
+const accessTokenKey = 'adelyn-blog-accessToken'
 
 export function getToken() {
-  return Cookies.get(TokenKey)
+  return Cookies.get(accessTokenKey)
 }
 
 export function setToken(token) {
-  return Cookies.set(TokenKey, token)
+  return Cookies.set(accessTokenKey, token)
 }
 
 export function removeToken() {

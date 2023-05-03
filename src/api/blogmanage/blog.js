@@ -2,9 +2,12 @@ import request from '@/utils/request.js'
 
 export function getPage(pageParam) {
     return request({
-        url: '/',
-        method: 'get',
-        params: pageParam
+        url: '/blogmanager/artical/userPage',
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: pageParam
     })
 }
 
@@ -12,22 +15,6 @@ export function publish(blogParam) {
     return request({
         url: '/blogmanager/artical',
         method: 'post',
-        params: blogParam
-    })
-}
-
-export function searchBlog(matchStr) {
-    return request({
-        url: '/',
-        method: 'get',
-        params: pageParam
-    })
-}
-
-export function login(userInfo) {
-    return request({
-        url: '/auth/login',
-        method: 'post',
-        data: userInfo
+        data: blogParam
     })
 }

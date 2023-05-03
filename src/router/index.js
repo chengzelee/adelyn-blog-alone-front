@@ -6,7 +6,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'Login',
-      component: () => import('@/views/blogmanage/login/index.vue')
+      component: () => import('@/views/common/login/index.vue')
     },
     {
       path: '/',

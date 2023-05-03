@@ -4,7 +4,7 @@
       mode="horizontal"
       :ellipsis="false"
   >
-    <el-menu-item index="0">Adelyn</el-menu-item>
+    <el-menu-item index="0" @click="toIndexPage">Adelyn</el-menu-item>
     <el-menu-item index="1" @click="addBlog">添加文章</el-menu-item>
     <el-menu-item index="2">tags</el-menu-item>
     <div class="flex-grow" />
@@ -12,13 +12,15 @@
   </el-menu>
 </template>
 
-<script>
-export default {
-  methods: {
-    addBlog(){
-      this.$router.push({ path: '/manage/addblog' })
-    }
-  }
+<script setup>
+import router from '@/router'
+
+const toIndexPage = () => {
+  router.push({ path: '/'})
+}
+
+const addBlog = () => {
+ router.push({ path: '/manage/addblog' })
 }
 
 </script>
