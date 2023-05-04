@@ -18,3 +18,19 @@ export function publish(blogParam) {
         data: blogParam
     })
 }
+
+export function update(blogParam) {
+    return request({
+        url: '/blogmanager/artical',
+        method: 'put',
+        data: blogParam
+    })
+}
+
+export function deleteBlog(blogParam) {
+    return request({
+        url: '/blogmanager/artical',
+        method: "delete",
+        params: blogParam
+    })
+}

@@ -12,15 +12,9 @@
   </el-container>
 </template>
 
-<script>
-import Header from './header/index.vue'
-import Blogs from './blogs/index.vue'
+<script setup>
+import Header from '@/views/blogmanage/header/index.vue'
 import Footer from '@/components/footer/index.vue'
-
-export default {
-  name: 'Blog',
-  components: {Header, Blogs, Footer}
-}
 </script>
 
 <style scoped>

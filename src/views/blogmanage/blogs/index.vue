@@ -16,9 +16,9 @@
   <el-row align="middle" justify="center">
     <el-col :span="24">
       <div v-for="blog in blogList" :key="blog.blogId">
-        <el-row align="middle" justify="center" @click="blogContent(blog.blogId)">
+        <el-row align="middle" justify="center">
           <el-col :span="12">
-            <el-card class="card-box" shadow="hover">
+            <el-card class="card-box" shadow="hover" @click="blogContent(blog.blogId)">
               <div class="card-head">{{blog.blogTitle}}</div>
               <div class="card-body">
                 <el-text truncated><p>aaa</p></el-text>
@@ -26,10 +26,10 @@
             </el-card>
           </el-col>
           <el-col :span="1">
-            <el-button type="primary" @click="editBlog">编辑</el-button>
+            <el-button type="primary" @click="editBlog(blog.blogId)">编辑</el-button>
           </el-col>
           <el-col :span="1">
-            <el-button type="danger" @click="deleteBlog">删除</el-button>
+            <el-button type="danger" @click="deleteBlog(blog.blogId)">删除</el-button>
           </el-col>
         </el-row>
       </div>
@@ -47,7 +47,7 @@ import Pagination from '@/components/pagination/index.vue'
 import {ref, onMounted } from 'vue'
 import router from '@/router'
 import { Search } from '@element-plus/icons-vue'
-import * as blogApi from '@/api/blog/blog.js'
+import * as blogManageApi from '@/api/blogmanage/blog.js'
 
 const searchString = ref('')
 
@@ -64,7 +64,7 @@ const getPage = () => {
     pageSize: pagination.value.pageSize
   }
 
-  blogApi.getPage({pageDTO: page} ).then(
+  blogManageApi.getPage({ pageDTO: page }).then(
       (res) => {
         pagination.value.totalCount = res.total
         blogList.value = res.list
@@ -79,6 +79,23 @@ const blogContent = (blogId) => {
       blogId: blogId
     }
   })
+}
+
+const editBlog = (blogId) => {
+  router.push({
+    path: '/manage/addblog',
+    query: {
+      blogId: blogId
+    }
+  })
+}
+
+const deleteBlog = (blogId) => {
+  blogManageApi.deleteBlog({ blogId: blogId}).then(
+      (res) => {
+        getPage()
+      }
+  )
 }
 </script>
 

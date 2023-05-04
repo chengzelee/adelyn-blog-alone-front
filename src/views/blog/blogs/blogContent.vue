@@ -27,7 +27,6 @@ const getBlogContent  = () => {
   console.log(blogId)
   blogApi.getBlogContent({ blogId: blogId }).then(
       (res) => {
-        console.log(res.content)
         blogTitle.value = res.title
         blogContent.value = res.content
       }

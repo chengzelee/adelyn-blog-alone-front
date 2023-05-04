@@ -18,7 +18,7 @@
             <el-button type="primary" @click="editBlog">编辑</el-button>
           </el-col>
           <el-col :span="1">
-            <el-button type="danger" @click="deleteBlog">删除</el-button>
+            <el-button type="danger" @click="">删除</el-button>
           </el-col>
         </el-row>
       </div>

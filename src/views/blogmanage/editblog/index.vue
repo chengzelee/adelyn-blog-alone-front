@@ -1,11 +1,6 @@
 <template>
   <div class="scroll-y">
     <el-input v-model="title" />
-<!--    <div class="mb-1">
-      <el-button @click="setTinyContent">设置文本消息</el-button>
-      <el-button @click="getTinyContent">获取文本消息</el-button>
-      <el-button @click="clearTinyContent">清空内容</el-button>
-    </div>-->
     <Tinymce ref="refTinymce" />
     <el-button type="primary" @click="publish">发布</el-button>
     <el-switch
@@ -19,9 +14,29 @@
 
 <script setup>
 import Tinymce from '@/components/tinymce/index.vue'
-import { ref } from 'vue'
-import * as blogApi from '@/api/blogmanage/blog.js'
+import {onMounted, ref} from 'vue'
+import * as blogManageApi from '@/api/blogmanage/blog.js'
+import * as blogApi from '@/api/blog/blog.js'
 import router from '@/router'
+import {useRouter} from "vue-router";
+
+let blogId
+onMounted(() => {
+  const router = useRouter()
+  blogId = router.currentRoute.value.query.blogId
+  if (blogId != null && blogId !== '') {
+    setBlogContent(blogId)
+  }
+})
+
+const setBlogContent  = (blogId) => {
+  blogApi.getBlogContent({ blogId: blogId }).then(
+      (res) => {
+        title.value = res.title
+        setTinyContent(res.content)
+      }
+  )
+}
 
 /*tinymce操作*/
 const refTinymce = ref(null);
@@ -29,9 +44,9 @@ const refTinymce = ref(null);
 const title = ref('')
 const visible = ref(true)
 
-const setTinyContent = () => {
+const setTinyContent = (blogData) => {
   if (refTinymce?.value) {
-    refTinymce.value.setContent("tinymce设置的内容");
+    refTinymce.value.setContent(blogData);
   }
 };
 
@@ -49,16 +64,25 @@ const clearTinyContent = () => {
 
 const publish = () => {
   let blog = {
+    blogId: blogId,
     blogTitle: title.value,
     blogContent: getTinyContent(),
     blogVisible: visible.value == true ? 'public' : 'private'
   }
 
-  blogApi.publish(blog).then(
-      () => {
-        router.push({ path: '/manage' })
-      }
-  )
+  if (blogId != null && blogId !== '') {
+    blogManageApi.update(blog).then(
+        () => {
+          router.push({ path: '/manage' })
+        }
+    )
+  } else {
+    blogManageApi.publish(blog).then(
+        () => {
+          router.push({ path: '/manage' })
+        }
+    )
+  }
 }
 
 </script>
