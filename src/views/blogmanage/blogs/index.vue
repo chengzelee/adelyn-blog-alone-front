@@ -19,9 +19,11 @@
         <el-row align="middle" justify="center">
           <el-col :span="12">
             <el-card class="card-box" shadow="hover" @click="blogContent(blog.blogId)">
-              <div class="card-head">{{blog.blogTitle}}</div>
+              <div class="card-head">
+                <div v-html="blog.blogTitle"/>
+              </div>
               <div class="card-body">
-                <el-text truncated><p>aaa</p></el-text>
+                <el-text truncated><div v-html="blog.blogContent"/></el-text>
               </div>
             </el-card>
           </el-col>
@@ -47,11 +49,14 @@ import Pagination from '@/components/pagination/index.vue'
 import {ref, onMounted } from 'vue'
 import router from '@/router'
 import { Search } from '@element-plus/icons-vue'
+import * as searchApi from '@/api/common/search.js'
 import * as blogManageApi from '@/api/blogmanage/blog.js'
 
 const searchString = ref('')
+const isSearch = ref(false)
 
 onMounted(() => {
+  isSearch.value = false
   getPage()
 })
 
@@ -59,13 +64,33 @@ const blogList = ref([]);
 const pagination = ref()
 
 const getPage = () => {
-  let page = {
-    pageNum: pagination.value.currentPage,
-    pageSize: pagination.value.pageSize
+  if (isSearch.value) {
+    searchUserBlog()
+  } else {
+    let page = {
+      pageNum: pagination.value.currentPage,
+      pageSize: pagination.value.pageSize
+    }
+
+    blogManageApi.getPage({ pageDTO: page }).then(
+        (res) => {
+          pagination.value.totalCount = res.total
+          blogList.value = res.list
+        }
+    )
+  }
+}
+
+const searchUserBlog = () => {
+  let searchBlogDTO = {
+    from: pagination.value.currentPage,
+    size: pagination.value.pageSize,
+    queryStr: searchString.value
   }
 
-  blogManageApi.getPage({ pageDTO: page }).then(
+  searchApi.searchUserBlog(searchBlogDTO).then(
       (res) => {
+        console.log(res)
         pagination.value.totalCount = res.total
         blogList.value = res.list
       }

@@ -3,10 +3,10 @@
     <el-header>
       <Header/>
     </el-header>
-    <el-main className="main">
+    <el-main class="main">
       <router-view/>
     </el-main>
-    <el-footer className="footer">
+    <el-footer class="footer">
       <Footer/>
     </el-footer>
   </el-container>
@@ -24,5 +24,9 @@ import Footer from '@/components/footer/index.vue'
 
 .footer {
   background-color: #d9ecff;
+}
+
+.el-container {
+  min-height: 100vh;
 }
 </style>

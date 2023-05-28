@@ -28,7 +28,10 @@ import 'tinymce/plugins/save' // 保存
 import 'tinymce/plugins/searchreplace' //查询替换
 import 'tinymce/plugins/pagebreak' //分页
 import 'tinymce/plugins/insertdatetime'
-import {onMounted, ref} from "vue"; //时间插入
+import {onMounted, ref} from "vue";
+
+import * as ossApi from '@/api/common/oss.js'
+
 
 const props = defineProps({
 value: {
@@ -56,61 +59,64 @@ toolbar: {
 })
 
 const init = {
-// width: 720,
-height: 400,
-language_url: '/tinymce/langs/zh-Hans.js',
-language: 'zh-Hans',
-// 皮肤：这里引入的是public下的资源文件
-skin_url: '/tinymce/skins/ui/oxide',
-// skin_url: 'tinymce/skins/ui/oxide-dark',//黑色系
-content_css: '/tinymce/skins/content/default/content.css', //内容区域css样式
-// images_file_types: "jpg,svg,webp",
-// images_upload_url: "xxxxxxxxxxxxx",//系统默认配置的自动上传路径，需替换为真实路径测试
-plugins: props.plugins,
-toolbar: props.toolbar,
-branding: false,
-// 隐藏菜单栏
-menubar: false,
-// 是否显示底部状态栏
-statusbar: true,
-// convert_urls: false,
-// 初始化完成
-init_instance_callback: (editor) => {
-  console.log('初始化完成：', editor)
+  // width: 720,
+  height: 400,
+  language_url: '/tinymce/langs/zh-Hans.js',
+  language: 'zh-Hans',
+  // 皮肤：这里引入的是public下的资源文件
+  skin_url: '/tinymce/skins/ui/oxide',
+  // skin_url: 'tinymce/skins/ui/oxide-dark',//黑色系
+  content_css: '/tinymce/skins/content/default/content.css', //内容区域css样式
+  // images_file_types: "jpg,svg,webp",
+  // images_upload_url: "xxxxxxxxxxxxx",//系统默认配置的自动上传路径，需替换为真实路径测试
+  plugins: props.plugins,
+  toolbar: props.toolbar,
+  branding: false,
+  // 隐藏菜单栏
+  menubar: false,
+  // 是否显示底部状态栏
+  statusbar: true,
+  // convert_urls: false,
+  // 图片对齐
+  a11y_advanced_options: true,
+  // 初始化完成
+  init_instance_callback: (editor) => {
+    console.log('初始化完成：', editor)
+  },
+
+  // 此处为自定义图片上传处理函数
+  images_upload_handler: (blobInfo, progress) => new Promise((resolve, reject) => {
+    let formData = new FormData();
+    formData.append('pic', blobInfo.blob());
+
+    ossApi.uploadPic(formData).then(
+        (res) => {
+          let picId = res
+          resolve("http://127.0.0.1:8005/blog/oss/pic/" + picId)
+        }
+    )
+
+  })
 }
-// 此处为自定义图片上传处理函数
-// images_upload_handler: (blobInfo, progress) => {
-//   console.log("图片上传处理：", blobInfo.blob());
-//   const formData = new FormData();
-//   formData.append("file", blobInfo.blob());
-//   axiosReq({
-//     url: "xxxxxxxxxxx",//需替换为真实路径测试
-//     data: formData,
-//     method: "post",
-//     bfLoading: true,
-//     isUploadFile: true,
-//   }).then((res) => {
-//     console.log(res);
-//   });
-// },
-}
+
 let textContent = ref(props.value)
 
 // 组件挂载完毕
 onMounted(() => {
-tinymce.init({})
+  tinymce.init({})
 })
 
 // 添加相关的事件,https://github.com/tinymce/tinymce-vueevents
 const clear = () => {
-textContent = ''
+  textContent = ''
 }
 
 const setContent = (value) => {
-textContent.value = value
+  textContent.value = value
 }
+
 const getContent = () => {
-return textContent.value
+  return textContent.value
 }
 defineExpose({ setContent, getContent })
 </script>

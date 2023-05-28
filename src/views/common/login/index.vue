@@ -7,11 +7,11 @@
         style="max-width: 460px"
     >
       <el-form-item label="name">
-        <el-input v-model="userInfo.principal" />
+        <el-input v-model="principal" />
       </el-form-item>
       <el-form-item label="password">
         <el-input
-            v-model="userInfo.credentials"
+            v-model="credentials"
             type="password"
             show-password
             @keyup.enter="userLogin"
@@ -25,19 +25,18 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import * as authApi from '@/api/common/auth.js'
 import { setToken } from '@/utils/auth.js'
 import router from '@/router'
 
-let userInfo = {
-      principal: '',
-      credentials: ''
-    }
+let principal = ref('')
+let credentials = ref('')
 
 let labelPosition = 'right'
 
 const userLogin = () => {
-  authApi.login({principal: userInfo.principal, credentials: userInfo.credentials}).then(
+  authApi.login({ principal: principal.value, credentials: credentials.value}).then(
       (res) => {
         setToken(res.accessToken)
         router.push({ path: '/manage' })

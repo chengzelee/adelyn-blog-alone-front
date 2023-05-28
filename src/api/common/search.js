@@ -1,9 +1,17 @@
 import request from '@/utils/request.js'
 
-export function searchBlog(matchStr) {
+export function searchBlog(pageParam) {
     return request({
-        url: '/',
-        method: 'get',
-        params: pageParam
+        url: '/search/match',
+        method: 'post',
+        data: pageParam
+    })
+}
+
+export function searchUserBlog(pageParam) {
+    return request({
+        url: '/search/match/user',
+        method: 'post',
+        data: pageParam
     })
 }

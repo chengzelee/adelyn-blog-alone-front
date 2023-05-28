@@ -12,15 +12,9 @@
   </el-container>
 </template>
 
-<script>
+<script setup>
 import Header from './header/index.vue'
-import Blogs from './blogs/index.vue'
 import Footer from '@/components/footer/index.vue'
-
-export default {
-  name: 'Blog',
-  components: { Header, Blogs, Footer }
-}
 </script>
 
 <style scoped>
@@ -29,5 +23,9 @@ export default {
 }
 .footer {
   background-color: #d9ecff;
+  bottom: 0;
+}
+.el-container {
+  min-height: 100vh;
 }
 </style>

@@ -1,14 +1,28 @@
 <template>
   <div class="scroll-y">
-    <el-input v-model="title" />
+    <el-row align="middle" justify="start">
+      <el-col :span="1">标题：</el-col>
+      <el-col :span="15">
+        <el-input v-model="title"/>
+      </el-col>
+    </el-row>
     <Tinymce ref="refTinymce" />
-    <el-button type="primary" @click="publish">发布</el-button>
-    <el-switch
-        v-model="visible"
-        inline-prompt
-        active-text="public"
-        inactive-text="private"
-    />
+    <el-row align="middle" justify="start">
+      <el-col :span="2">是否公开：</el-col>
+      <el-col :span="3">
+        <el-switch
+            v-model="visible"
+            inline-prompt
+            active-text="public"
+            inactive-text="private"
+        />
+      </el-col>
+    </el-row>
+    <el-row align="middle" justify="end">
+      <el-col :span="4">
+        <el-button type="primary" @click="publish">发布</el-button>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -29,11 +43,11 @@ onMounted(() => {
   }
 })
 
-const setBlogContent  = (blogId) => {
+const setBlogContent = (blogId) => {
   blogApi.getBlogContent({ blogId: blogId }).then(
       (res) => {
-        title.value = res.title
-        setTinyContent(res.content)
+        title.value = res.blogTitle
+        setTinyContent(res.blogContent)
       }
   )
 }

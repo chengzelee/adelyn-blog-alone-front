@@ -1,10 +1,10 @@
 <template>
   <el-row align="middle" justify="center">
     <el-col :span="24">
-      <div v-html="blogTitle"></div>
+      <div v-html="blogTitle"/>
     </el-col>
     <el-col :span="24">
-      <div v-html="blogContent"></div>
+      <div v-html="blogContent"/>
     </el-col>
   </el-row>
 </template>
@@ -27,8 +27,8 @@ const getBlogContent  = () => {
   console.log(blogId)
   blogApi.getBlogContent({ blogId: blogId }).then(
       (res) => {
-        blogTitle.value = res.title
-        blogContent.value = res.content
+        blogTitle.value = res.blogTitle
+        blogContent.value = res.blogContent
       }
   )
 }

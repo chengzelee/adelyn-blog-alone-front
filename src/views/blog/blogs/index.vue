@@ -16,12 +16,14 @@
   <el-row align="middle" justify="center">
     <el-col :span="24">
       <div v-for="blog in blogList" :key="blog.blogId">
-        <el-row align="middle" justify="center" @click="blogContent(blog.blogId)">
+        <el-row align="middle" justify="center">
           <el-col :span="14">
-            <el-card class="card-box" shadow="hover">
-              <div class="card-head">{{blog.blogTitle}}</div>
+            <el-card class="card-box" shadow="hover" @click="blogContent(blog.blogId)">
+              <div class="card-head">
+                <div v-html="blog.blogTitle"/>
+              </div>
               <div class="card-body">
-                <el-text truncated><p>aaa</p></el-text>
+                <el-text truncated><div v-html="blog.blogContent"/></el-text>
               </div>
             </el-card>
           </el-col>
@@ -29,7 +31,7 @@
       </div>
     </el-col>
   </el-row>
-  <el-row align="middle" justify="center">
+  <el-row align="middle" justify="center" style="bottom: 0">
     <el-col :span="3">
       <Pagination @getPage="getPage" ref="pagination"></Pagination>
     </el-col>
@@ -42,10 +44,13 @@ import {ref, onMounted } from 'vue'
 import router from '@/router'
 import { Search } from '@element-plus/icons-vue'
 import * as blogApi from '@/api/blog/blog.js'
+import * as searchApi from '@/api/common/search.js'
 
 const searchString = ref('')
+const isSearch = ref(false)
 
 onMounted(() => {
+  isSearch.value = false
   getPage()
 })
 
@@ -53,13 +58,33 @@ const blogList = ref([]);
 const pagination = ref()
 
 const getPage = () => {
-  let page = {
-    pageNum: pagination.value.currentPage,
-    pageSize: pagination.value.pageSize
+  if (isSearch.value) {
+    searchBlog()
+  } else {
+    let page = {
+      pageNum: pagination.value.currentPage,
+      pageSize: pagination.value.pageSize
+    }
+
+    blogApi.getPage({pageDTO: page}).then(
+        (res) => {
+          pagination.value.totalCount = res.total
+          blogList.value = res.list
+        }
+    )
+  }
+}
+
+const searchBlog = () => {
+  let searchBlogDTO = {
+    from: pagination.value.currentPage,
+    size: pagination.value.pageSize,
+    queryStr: searchString.value
   }
 
-  blogApi.getPage({pageDTO: page} ).then(
+  searchApi.searchBlog(searchBlogDTO).then(
       (res) => {
+        console.log(res)
         pagination.value.totalCount = res.total
         blogList.value = res.list
       }

@@ -21,7 +21,7 @@ export default defineConfig({
     proxy: {
       '/blog/auth': {
         // 后台地址
-        target: 'http://127.0.0.1:8002',
+        target: 'http://192.168.23.130:8002',
         // 是否跨域
         changeOrigin: true,
         // 是否https接口
@@ -36,6 +36,11 @@ export default defineConfig({
       },
       '/blog/search': {
         target: 'http://127.0.0.1:8004',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/blog/oss': {
+        target: 'http://127.0.0.1:8005',
         changeOrigin: true,
         secure: false,
       },
