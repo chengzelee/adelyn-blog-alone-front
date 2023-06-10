@@ -1,48 +1,41 @@
 <template>
   <el-row align="middle" justify="center">
     <el-col :span="24">
-      <div v-for="o in 5" :key="o">
-        <el-row gutter="6" align="middle" justify="center">
+      <div v-for="tag in tagList" :key="blog.blogId">
+        <el-row align="middle" justify="center">
           <el-col :span="12">
             <el-card class="card-box" shadow="hover">
-              <div class="card-head">head</div>
+              <div class="card-head">
+                <div v-html="blog.blogTitle"/>
+              </div>
               <div class="card-body">
-                <el-text truncated>Squeezed by parent elementtttttttttttttttttttttttttttttttttttttttt
-                  ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
-                  tttttttttt
-                </el-text>
+                <el-text truncated><div v-html="blog.blogContent"/></el-text>
               </div>
             </el-card>
           </el-col>
           <el-col :span="1">
-            <el-button type="primary" @click="editBlog">编辑</el-button>
+            <el-button type="primary" @click="editTag(blog.blogId)">编辑</el-button>
           </el-col>
           <el-col :span="1">
-            <el-button type="danger" @click="">删除</el-button>
+            <el-button type="danger" @click="deleteBlog(blog.blogId)">删除</el-button>
           </el-col>
         </el-row>
       </div>
     </el-col>
   </el-row>
   <el-row align="middle" justify="center">
-    <el-col :span="3"><Pagination/></el-col>
+    <el-col :span="3">
+      <Pagination @getPage="getPage" ref="pagination"></Pagination>
+    </el-col>
   </el-row>
 </template>
 
-<script>
+<script setup>
 import Pagination from '@/components/pagination/index.vue'
+import {ref, onMounted } from 'vue'
+import router from '@/router'
 
-export default {
-  components : { Pagination }
-}
 
-const editBlog = () => {
-  console.log('submit!')
-}
-
-const deleteBlog = () => {
-  console.log('submit!')
-}
 </script>
 
 <style scoped>

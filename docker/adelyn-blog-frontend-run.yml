@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  adelyn-gateway:
+    image: adelyn-blog-frontend:1.0.0
+    container_name: adelyn-blog-frontend
+    privileged: true
+    volumes:
+      - /docker/apps/adelyn/frontend/www.adelyn.cn.pem:/usr/local/nginx/conf/cert.pem
+      - /docker/apps/adelyn/frontend/www.adelyn.cn.key:/usr/local/nginx/conf/cert.key
+    ports:
+      - "443:443"
+    restart: always
+networks:
+  default:
+    external:
+      name: adelyn

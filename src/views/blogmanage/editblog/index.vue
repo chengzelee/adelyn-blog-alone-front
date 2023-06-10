@@ -32,7 +32,7 @@ import {onMounted, ref} from 'vue'
 import * as blogManageApi from '@/api/blogmanage/blog.js'
 import * as blogApi from '@/api/blog/blog.js'
 import router from '@/router'
-import {useRouter} from "vue-router";
+import { useRouter } from "vue-router";
 
 let blogId
 onMounted(() => {
@@ -50,6 +50,30 @@ const setBlogContent = (blogId) => {
         setTinyContent(res.blogContent)
       }
   )
+}
+
+const publish = () => {
+  let blog = {
+    blogId: blogId,
+    blogTitle: title.value,
+    blogContent: getTinyContent(),
+    picIdList: getPicIdList(),
+    blogVisible: visible.value == true ? 'public' : 'private'
+  }
+
+  if (blogId != null && blogId !== '') {
+    blogManageApi.update(blog).then(
+        () => {
+          router.push({ path: '/manage' })
+        }
+    )
+  } else {
+    blogManageApi.publish(blog).then(
+        () => {
+          router.push({ path: '/manage' })
+        }
+    )
+  }
 }
 
 /*tinymce操作*/
@@ -76,27 +100,9 @@ const clearTinyContent = () => {
   }
 };
 
-const publish = () => {
-  let blog = {
-    blogId: blogId,
-    blogTitle: title.value,
-    blogContent: getTinyContent(),
-    blogVisible: visible.value == true ? 'public' : 'private'
+const getPicIdList = () => {
+  if (refTinymce?.value) {
+    return refTinymce.value.getPicIdList();
   }
-
-  if (blogId != null && blogId !== '') {
-    blogManageApi.update(blog).then(
-        () => {
-          router.push({ path: '/manage' })
-        }
-    )
-  } else {
-    blogManageApi.publish(blog).then(
-        () => {
-          router.push({ path: '/manage' })
-        }
-    )
-  }
-}
-
+};
 </script>

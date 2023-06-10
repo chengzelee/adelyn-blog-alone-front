@@ -3,7 +3,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-// https://vitejs.dev/config/
+// https://cn.vitejs.dev/config/server-options.html
 export default defineConfig({
   plugins: [vue()],
   resolve: {
@@ -19,7 +19,12 @@ export default defineConfig({
     https: false,
     // 设置反向代理，解决跨域问题
     proxy: {
-      '/blog/auth': {
+      '/blog': {
+        target: 'https://192.168.23.130',
+        changeOrigin: true,
+        secure: false,
+      },
+/*      '/blog/auth': {
         // 后台地址
         target: 'http://192.168.23.130:8002',
         // 是否跨域
@@ -43,7 +48,7 @@ export default defineConfig({
         target: 'http://127.0.0.1:8005',
         changeOrigin: true,
         secure: false,
-      },
+      },*/
       // '/api2': {
       //   // 后台地址
       //   target: 'http://127.0.0.1:8956/',
@@ -51,5 +56,8 @@ export default defineConfig({
       //   rewrite: path => path.replace(/^\/api2/, '')
       // }
     }
+  },
+  build: {
+    outDir: "./docker/dist",
   }
 })

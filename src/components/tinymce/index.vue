@@ -93,18 +93,19 @@ const init = {
         (res) => {
           let picId = res
           resolve("http://127.0.0.1:8005/blog/oss/pic/" + picId)
+          picIdList.value.push(picId)
         }
     )
 
   })
 }
 
-let textContent = ref(props.value)
-
 // 组件挂载完毕
 onMounted(() => {
   tinymce.init({})
 })
+
+let textContent = ref(props.value)
 
 // 添加相关的事件,https://github.com/tinymce/tinymce-vueevents
 const clear = () => {
@@ -118,5 +119,12 @@ const setContent = (value) => {
 const getContent = () => {
   return textContent.value
 }
-defineExpose({ setContent, getContent })
+
+const picIdList = ref([])
+
+const getPicIdList = () => {
+  return picIdList.value
+}
+
+defineExpose({ setContent, getContent, getPicIdList })
 </script>
