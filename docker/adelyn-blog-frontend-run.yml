@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  adelyn-gateway:
+  adelyn-blog-frontend:
     image: adelyn-blog-frontend:1.0.0
     container_name: adelyn-blog-frontend
     privileged: true
