@@ -1,5 +1,5 @@
 <template>
-  <el-row :gutter="10" align="middle" justify="center">
+  <el-row class="el-row-bottom-space" :gutter="12" align="middle" justify="center">
     <el-col :span="8">
       <el-input
           v-model="searchString"
@@ -9,14 +9,14 @@
           :prefix-icon="Search"
       />
     </el-col>
-    <el-col :span="1">
+    <el-col :span="2">
       <el-button type="primary" :icon="Search" @click="searchUserBlog">Search</el-button>
     </el-col>
   </el-row>
-  <el-row align="middle" justify="center">
+  <el-row v-loading="loading" align="middle" justify="center">
     <el-col :span="24">
       <div v-for="blog in blogList" :key="blog.blogId">
-        <el-row align="middle" justify="center">
+        <el-row :gutter="12" align="middle" justify="center">
           <el-col :span="12">
             <el-card class="card-box" shadow="hover" @click="blogContent(blog.blogId)">
               <div class="card-head">
@@ -49,6 +49,7 @@ import Pagination from '@/components/pagination/index.vue'
 import {ref, onMounted } from 'vue'
 import router from '@/router'
 import { Search } from '@element-plus/icons-vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import * as searchApi from '@/api/common/search.js'
 import * as blogManageApi from '@/api/blogmanage/blog.js'
 
@@ -60,10 +61,13 @@ onMounted(() => {
   getPage()
 })
 
-const blogList = ref([]);
+const blogList = ref([])
 const pagination = ref()
 
+const loading = ref(true)
+
 const getPage = () => {
+  loading.value = true
   if (isSearch.value) {
     searchUserBlog()
   } else {
@@ -76,6 +80,8 @@ const getPage = () => {
         (res) => {
           pagination.value.totalCount = res.total
           blogList.value = res.list
+
+          loading.value = false
         }
     )
   }
@@ -116,15 +122,38 @@ const editBlog = (blogId) => {
 }
 
 const deleteBlog = (blogId) => {
-  blogManageApi.deleteBlog({ blogId: blogId}).then(
-      (res) => {
-        getPage()
+  ElMessageBox.confirm(
+      '确认要删除嘛？',
+      {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
       }
   )
+      .then(() => {
+        blogManageApi.deleteBlog({ blogId: blogId }).then(
+            () => {
+              ElMessage({
+                type: 'success',
+                message: '成功删除',
+              })
+              getPage()
+            }
+        )
+      })
+      .catch(() => {
+        ElMessage({
+          type: 'info',
+          message: '取消删除',
+        })
+      })
 }
 </script>
 
 <style scoped>
+.el-row-bottom-space {
+  margin-bottom: 10px;
+}
 .card-box {
   margin-bottom: 6px;
 }
@@ -137,5 +166,9 @@ const deleteBlog = (blogId) => {
 .card-body {
   margin-top: 5px;
   font-size: 14px;
+}
+
+.card-button {
+  margin-left: 16px;
 }
 </style>

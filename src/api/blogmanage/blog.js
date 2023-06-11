@@ -1,29 +1,37 @@
 import request from '@/utils/request.js'
 
-export function getPage(pageParam) {
+export function getPage(pageData) {
     return request({
         url: '/blogmanager/artical/userPage',
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
         },
-        data: pageParam
+        data: pageData
     })
 }
 
-export function publish(blogParam) {
+export function getInfo(blogParam) {
+    return request({
+        url: '/blogmanager/artical',
+        method: 'get',
+        params: blogParam
+    })
+}
+
+export function publish(blogData) {
     return request({
         url: '/blogmanager/artical',
         method: 'post',
-        data: blogParam
+        data: blogData
     })
 }
 
-export function update(blogParam) {
+export function update(blogData) {
     return request({
         url: '/blogmanager/artical',
         method: 'put',
-        data: blogParam
+        data: blogData
     })
 }
 

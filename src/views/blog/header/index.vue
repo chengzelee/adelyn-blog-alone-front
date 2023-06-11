@@ -6,7 +6,7 @@
   >
     <el-menu-item index="0" @click="toIndexPage">Adelyn</el-menu-item>
     <div class="flex-grow" />
-    <el-menu-item index="1" @click="blogManage">个人空间</el-menu-item>
+    <el-menu-item index="1" @click="toBlogManage">个人空间</el-menu-item>
   </el-menu>
 </template>
 
@@ -17,7 +17,7 @@ const toIndexPage = () => {
   router.push({ path: '/'})
 }
 
-const blogManage = () => {
+const toBlogManage = () => {
   router.push({ path: '/manage' })
 }
 </script>

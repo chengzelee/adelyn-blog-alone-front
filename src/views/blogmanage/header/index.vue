@@ -5,10 +5,10 @@
       :ellipsis="false"
   >
     <el-menu-item index="0" @click="toIndexPage">Adelyn</el-menu-item>
-    <el-menu-item index="1" @click="addBlog">添加文章</el-menu-item>
-    <el-menu-item index="2">tags</el-menu-item>
+    <el-menu-item index="1" @click="toAddBlog">添加文章</el-menu-item>
+    <el-menu-item index="2" @click="toTagManage">tags</el-menu-item>
     <div class="flex-grow" />
-    <el-menu-item index="1">个人空间</el-menu-item>
+    <el-menu-item index="1" @click="toBlogManage">个人空间</el-menu-item>
   </el-menu>
 </template>
 
@@ -19,8 +19,16 @@ const toIndexPage = () => {
   router.push({ path: '/'})
 }
 
-const addBlog = () => {
- router.push({ path: '/manage/addblog' })
+const toAddBlog = () => {
+  router.push({ path: '/manage/addblog' })
+}
+
+const toTagManage = () => {
+  router.push({ path: '/manage/tag'})
+}
+
+const toBlogManage = () => {
+  router.push({ path: '/manage' })
 }
 
 </script>

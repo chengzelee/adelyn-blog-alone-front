@@ -1,9 +1,9 @@
 <template>
   <el-row align="middle" justify="center">
-    <el-col :span="24">
-      <div v-html="blogTitle"/>
+    <el-col :span="18" justify="center">
+      <h1 class="title">{{ blogTitle }}</h1>
     </el-col>
-    <el-col :span="24">
+    <el-col :span="18" justify="center">
       <div v-html="blogContent"/>
     </el-col>
   </el-row>
@@ -24,7 +24,6 @@ const blogContent = ref('')
 const getBlogContent  = () => {
   const router = useRouter()
   let blogId = router.currentRoute.value.query.blogId
-  console.log(blogId)
   blogApi.getBlogContent({ blogId: blogId }).then(
       (res) => {
         blogTitle.value = res.blogTitle
@@ -36,5 +35,9 @@ const getBlogContent  = () => {
 </script>
 
 <style scoped>
+
+.title {
+  text-align: center;
+}
 
 </style>

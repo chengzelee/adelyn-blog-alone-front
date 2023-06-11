@@ -1,5 +1,5 @@
 <template>
-  <el-row :gutter="10" align="middle" justify="center">
+  <el-row class="el-row-bottom-space" :gutter="10" align="middle" justify="center">
     <el-col :span="8">
       <el-input
           v-model="searchString"
@@ -103,6 +103,10 @@ const blogContent = (blogId) => {
 </script>
 
 <style scoped>
+.el-row-bottom-space {
+  margin-bottom: 10px;
+}
+
 .card-box {
   margin-bottom: 6px;
 }

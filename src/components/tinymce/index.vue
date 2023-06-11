@@ -52,7 +52,7 @@ plugins: {
 toolbar: {
   type: [String, Array],
   default:
-      'undo redo |  formatselect | bold italic underline strikethrough forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | lists image media table | codesample code removeformat save preview'
+      'undo redo |  formatselect | bold italic underline strikethrough forecolor backcolor | alignleft aligncenter alignright alignjustify | lineheight bullist numlist outdent indent blockquote | lists image media table | codesample code removeformat save preview'
   // default:
   //   "formats undo redo paste print fontsizeselect fontselect template fullpage|wordcount ltr rtl visualchars visualblocks toc spellchecker searchreplace|save preview pagebreak nonbreaking|media image|outdent indent aligncenter alignleft alignright alignjustify lineheight  underline quicklink h2 h3 blockquote numlist bullist table removeformat forecolor backcolor bold italic  strikethrough hr charmap link insertdatetime|subscript superscript cut codesample code |anchor preview fullscreen|help",
 }
@@ -81,7 +81,7 @@ const init = {
   a11y_advanced_options: true,
   // 初始化完成
   init_instance_callback: (editor) => {
-    console.log('初始化完成：', editor)
+    // console.log('初始化完成：', editor)
   },
 
   // 此处为自定义图片上传处理函数
