@@ -6,6 +6,7 @@
           class="w-50 m-2"
           size="large"
           placeholder="search"
+          @keyup.enter="searchBlog"
           :prefix-icon="Search"
       />
     </el-col>
@@ -24,6 +25,17 @@
               </div>
               <div class="card-body">
                 <el-text truncated><div v-html="blog.blogContent"/></el-text>
+              </div>
+              <div class="card-body">
+                <el-tag
+                    v-for="tag in blog.blogTagList"
+                    :key="tag.tagId"
+                    class="mx-1 tag-box"
+                    :type="''"
+                    effect="light"
+                >
+                  {{ tag.tagName }}
+                </el-tag>
               </div>
             </el-card>
           </el-col>
@@ -119,5 +131,9 @@ const blogContent = (blogId) => {
 .card-body {
   margin-top: 5px;
   font-size: 14px;
+}
+
+.tag-box {
+  margin-right: 10px;
 }
 </style>

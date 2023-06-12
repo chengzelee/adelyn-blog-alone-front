@@ -14,11 +14,20 @@
   <el-row align="middle" justify="center">
     <el-col :span="24">
       <div v-for="tag in tagList" :key="tag.tagId">
-        <el-row align="middle" justify="center">
+        <el-row :gutter="12" align="middle" justify="center">
           <el-col :span="12">
-            <el-card class="card-box" shadow="hover">
+            <el-card class="card-box" shadow="hover" @click="tagBlogs(tag.tagId)">
               <div class="card-body">
                 <el-text><h2>{{ tag.tagName }}</h2></el-text>
+              </div>
+              <div class="card-body">
+                <el-tag
+                    class="mx-1 tag-box"
+                    :type="''"
+                    effect="light"
+                >
+                  {{ tag.tagBlogNum }} 篇
+                </el-tag>
               </div>
             </el-card>
           </el-col>
@@ -57,6 +66,7 @@
 import Pagination from '@/components/pagination/index.vue'
 import { ref, onMounted } from 'vue'
 import * as tagApi from '@/api/blogmanage/tag.js'
+import router from "../../../router";
 
 onMounted(() => {
   getPage()
@@ -117,6 +127,15 @@ const deleteTag = (tagId) => {
         getPage()
       }
   )
+}
+
+const tagBlogs = (tagId) => {
+  router.push({
+    path: '/manage',
+    query: {
+      blogTagId: tagId
+    }
+  })
 }
 
 </script>

@@ -6,6 +6,7 @@
           class="w-50 m-2"
           size="large"
           placeholder="search"
+          @keyup.enter="searchUserBlog"
           :prefix-icon="Search"
       />
     </el-col>
@@ -24,6 +25,17 @@
               </div>
               <div class="card-body">
                 <el-text truncated><div v-html="blog.blogContent"/></el-text>
+              </div>
+              <div class="card-body">
+                <el-tag
+                    v-for="tag in blog.blogTagList"
+                    :key="tag.tagId"
+                    class="mx-1 tag-box"
+                    :type="''"
+                    effect="light"
+                >
+                  {{ tag.tagName }}
+                </el-tag>
               </div>
             </el-card>
           </el-col>
@@ -52,6 +64,7 @@ import { Search } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import * as searchApi from '@/api/common/search.js'
 import * as blogManageApi from '@/api/blogmanage/blog.js'
+import {useRouter} from "vue-router";
 
 const searchString = ref('')
 const isSearch = ref(false)
@@ -71,12 +84,23 @@ const getPage = () => {
   if (isSearch.value) {
     searchUserBlog()
   } else {
-    let page = {
-      pageNum: pagination.value.currentPage,
-      pageSize: pagination.value.pageSize
+    const router = useRouter()
+    let blogTagId
+    if (router != null) {
+      blogTagId = router.currentRoute.value.query.blogTagId
     }
 
-    blogManageApi.getPage({ pageDTO: page }).then(
+    let page = {
+      pageNum: pagination.value.currentPage,
+      pageSize: pagination.value.pageSize,
+    }
+
+    let blogQueryDTO = {
+      blogTagId: blogTagId,
+      pageDTO: page
+    }
+
+    blogManageApi.getPage(blogQueryDTO).then(
         (res) => {
           pagination.value.totalCount = res.total
           blogList.value = res.list
@@ -96,7 +120,6 @@ const searchUserBlog = () => {
 
   searchApi.searchUserBlog(searchBlogDTO).then(
       (res) => {
-        console.log(res)
         pagination.value.totalCount = res.total
         blogList.value = res.list
       }
@@ -168,7 +191,7 @@ const deleteBlog = (blogId) => {
   font-size: 14px;
 }
 
-.card-button {
-  margin-left: 16px;
+.tag-box {
+  margin-right: 10px;
 }
 </style>
