@@ -19,13 +19,8 @@ export default defineConfig({
     https: false,
     // 设置反向代理，解决跨域问题
     proxy: {
-      '/blog/blogmanager': {
-        target: 'http://127.0.0.1:8041',
-        changeOrigin: true,
-        secure: false,
-      },
       '/blog': {
-        target: 'https://192.168.23.130:1919',
+        target: 'https://192.168.23.132:1919',
         changeOrigin: true,
         secure: false,
       },

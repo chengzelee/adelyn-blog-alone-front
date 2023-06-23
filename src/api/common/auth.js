@@ -7,3 +7,11 @@ export function login(userInfo) {
         data: userInfo
     })
 }
+
+export function refreshAccessToken(refreshToken) {
+    return request({
+        url: '/auth/token/refresh',
+        method: 'post',
+        data: refreshToken
+    })
+}

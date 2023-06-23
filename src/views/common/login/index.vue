@@ -27,7 +27,7 @@
 <script setup>
 import { ref } from 'vue'
 import * as authApi from '@/api/common/auth.js'
-import { setToken } from '@/utils/auth.js'
+import { setAccessToken, setRefreshToken } from '@/utils/auth.js'
 import router from '@/router'
 
 let principal = ref('')
@@ -38,7 +38,8 @@ let labelPosition = 'right'
 const userLogin = () => {
   authApi.login({ principal: principal.value, credentials: credentials.value}).then(
       (res) => {
-        setToken(res.accessToken)
+        setAccessToken(res.accessToken)
+        setRefreshToken(res.refreshToken)
         router.push({ path: '/manage' })
       }
   )

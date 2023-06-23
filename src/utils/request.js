@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { getToken } from './auth.js'
+import { ElMessage } from 'element-plus'
+import * as authUtil from '@/utils/auth.js'
 import router from '@/router'
 import JSONBIG from 'json-bigint'
 
@@ -28,7 +28,7 @@ service.interceptors.request.use(
     // do something before request is sent
     // let each request carry token
     // ['Authorization'] is a custom headers key
-    config.headers['Authorization'] = getToken()
+    config.headers['Authorization'] = authUtil.getAccessToken()
     return config
   },
   error => {
@@ -44,9 +44,8 @@ service.interceptors.response.use(
     const res = response.data
 
     if (res.success) {
-        // ElMessage.success("操作成功")
         return Promise.resolve(res.data)
-    } else if (res.code === '8004-1') {
+    } else if (res.code === '8004-0') {
         router.push({ path: '/login' })
     } else {
         ElMessage.error(res.msg)

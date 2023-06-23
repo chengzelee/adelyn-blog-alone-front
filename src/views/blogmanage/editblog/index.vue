@@ -67,7 +67,7 @@ onMounted(() => {
 })
 
 const setBlogContent = (blogId) => {
-  blogApi.getBlogContent({ blogId: blogId }).then(
+  blogApi.getUserBlogContent({ blogId: blogId }).then(
       (res) => {
         title.value = res.blogTitle
         setTinyContent(res.blogContent)

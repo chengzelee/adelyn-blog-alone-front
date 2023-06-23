@@ -22,14 +22,27 @@ const blogTitle = ref('')
 const blogContent = ref('')
 
 const getBlogContent  = () => {
+  let isUser = "false"
+
   const router = useRouter()
   let blogId = router.currentRoute.value.query.blogId
-  blogApi.getBlogContent({ blogId: blogId }).then(
-      (res) => {
-        blogTitle.value = res.blogTitle
-        blogContent.value = res.blogContent
-      }
-  )
+  isUser = router.currentRoute.value.query.isUser
+
+  if (isUser === "true") {
+    blogApi.getUserBlogContent({ blogId: blogId }).then(
+        (res) => {
+          blogTitle.value = res.blogTitle
+          blogContent.value = res.blogContent
+        }
+    )
+  } else {
+    blogApi.getBlogContent({ blogId: blogId }).then(
+        (res) => {
+          blogTitle.value = res.blogTitle
+          blogContent.value = res.blogContent
+        }
+    )
+  }
 }
 
 </script>

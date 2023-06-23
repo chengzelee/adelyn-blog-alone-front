@@ -96,7 +96,6 @@ const searchBlog = () => {
 
   searchApi.searchBlog(searchBlogDTO).then(
       (res) => {
-        console.log(res)
         pagination.value.totalCount = res.total
         blogList.value = res.list
       }
@@ -107,7 +106,8 @@ const blogContent = (blogId) => {
   router.push({
     path: '/blogContent',
     query: {
-      blogId: blogId
+      blogId: blogId,
+      isUser: "false"
     }
   })
 }

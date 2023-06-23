@@ -130,7 +130,8 @@ const blogContent = (blogId) => {
   router.push({
     path: '/blogContent',
     query: {
-      blogId: blogId
+      blogId: blogId,
+      isUser: "true"
     }
   })
 }

@@ -40,6 +40,7 @@ const router = createRouter({
         },
         {
           path: '/manage/addblog',
+          meta: { keepAlive: true },// 需要被缓存
           component: () => import('@/views/blogmanage/editblog/index.vue')
         }
       ]

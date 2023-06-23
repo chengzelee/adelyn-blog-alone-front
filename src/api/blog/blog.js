@@ -18,3 +18,11 @@ export function getBlogContent(blogParam) {
         params: blogParam
     })
 }
+
+export function getUserBlogContent(blogParam) {
+    return request({
+        url: '/search/blogContent/user',
+        method: 'get',
+        params: blogParam
+    })
+}
