@@ -28,7 +28,7 @@
               </div>
               <div class="card-body">
                 <el-tag
-                    v-for="tag in blog.blogTagList"
+                    v-for="tag in blog.blogTagInfoList"
                     :key="tag.tagId"
                     class="mx-1 tag-box"
                     :type="''"
@@ -36,6 +36,7 @@
                 >
                   {{ tag.tagName }}
                 </el-tag>
+
               </div>
             </el-card>
           </el-col>
@@ -80,6 +81,7 @@ const getPage = () => {
 
     blogApi.getPage({pageDTO: page}).then(
         (res) => {
+          console.log(res)
           pagination.value.totalCount = res.total
           blogList.value = res.list
         }

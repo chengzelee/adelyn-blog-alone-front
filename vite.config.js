@@ -20,7 +20,7 @@ export default defineConfig({
     // 设置反向代理，解决跨域问题
     proxy: {
       '/blog': {
-        target: 'https://192.168.23.132:1919',
+        target: 'http://127.0.0.1:9099',
         changeOrigin: true,
         secure: false,
       },

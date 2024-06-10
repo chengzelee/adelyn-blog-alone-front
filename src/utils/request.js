@@ -43,9 +43,9 @@ service.interceptors.response.use(
   response => {
     const res = response.data
 
-    if (res.success) {
+    if (res.code = '200') {
         return Promise.resolve(res.data)
-    } else if (res.code === '8004-0') {
+    } else if (res.code === '403') {
         router.push({ path: '/login' })
     } else {
         ElMessage.error(res.msg)

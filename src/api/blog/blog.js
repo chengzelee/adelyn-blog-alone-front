@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getPage(pageParam) {
     return request({
-        url: '/blogmanager/artical/page',
+        url: '/article/public/page',
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
@@ -13,7 +13,7 @@ export function getPage(pageParam) {
 
 export function getBlogContent(blogParam) {
     return request({
-        url: '/search/blogContent',
+        url: '/search/public/blogContent',
         method: 'get',
         params: blogParam
     })

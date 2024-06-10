@@ -2,7 +2,7 @@ import request from '@/utils/request.js'
 
 export function searchBlog(pageParam) {
     return request({
-        url: '/search/match',
+        url: '/search/public/match',
         method: 'post',
         data: pageParam
     })
