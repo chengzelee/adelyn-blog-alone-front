@@ -79,7 +79,7 @@ const getBlogInfo = (blogId) => {
   blogManageApi.getInfo({ blogId: blogId }).then(
       (res) => {
         visible.value = (res.blogVisible === 'public')
-        for (const tagVO of res.blogTagList) {
+        for (const tagVO of res.blogTagInfoList) {
           selectedTagList.value.push(tagVO.tagId)
         }
       }

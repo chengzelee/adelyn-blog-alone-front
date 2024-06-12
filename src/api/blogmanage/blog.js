@@ -2,7 +2,7 @@ import request from '@/utils/request.js'
 
 export function getPage(pageData) {
     return request({
-        url: '/blogmanager/artical/userPage',
+        url: '/article/user/page',
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
@@ -13,7 +13,7 @@ export function getPage(pageData) {
 
 export function getInfo(blogParam) {
     return request({
-        url: '/blogmanager/artical',
+        url: '/article',
         method: 'get',
         params: blogParam
     })
@@ -21,7 +21,7 @@ export function getInfo(blogParam) {
 
 export function publish(blogData) {
     return request({
-        url: '/blogmanager/artical',
+        url: '/article',
         method: 'post',
         data: blogData
     })
@@ -29,7 +29,7 @@ export function publish(blogData) {
 
 export function update(blogData) {
     return request({
-        url: '/blogmanager/artical',
+        url: '/article',
         method: 'put',
         data: blogData
     })
@@ -37,7 +37,7 @@ export function update(blogData) {
 
 export function deleteBlog(blogParam) {
     return request({
-        url: '/blogmanager/artical',
+        url: '/article',
         method: "delete",
         params: blogParam
     })

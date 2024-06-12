@@ -7,11 +7,11 @@
         style="max-width: 460px"
     >
       <el-form-item label="name">
-        <el-input v-model="principal" />
+        <el-input v-model="userName" />
       </el-form-item>
       <el-form-item label="password">
         <el-input
-            v-model="credentials"
+            v-model="password"
             type="password"
             show-password
             @keyup.enter="userLogin"
@@ -30,13 +30,13 @@ import * as authApi from '@/api/common/auth.js'
 import { setAccessToken, setRefreshToken } from '@/utils/auth.js'
 import router from '@/router'
 
-let principal = ref('')
-let credentials = ref('')
+let userName = ref('')
+let password = ref('')
 
 let labelPosition = 'right'
 
 const userLogin = () => {
-  authApi.login({ principal: principal.value, credentials: credentials.value}).then(
+  authApi.login({ userName: userName.value, password: password.value}).then(
       (res) => {
         setAccessToken(res.accessToken)
         setRefreshToken(res.refreshToken)

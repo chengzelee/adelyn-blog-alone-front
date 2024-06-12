@@ -9,7 +9,7 @@ export function getPicUploadUrl() {
 
 export function uploadPic(picParam) {
     return request({
-        url: '/oss/pic',
+        url: '/resource/pic',
         method: 'post',
         data: picParam
     })

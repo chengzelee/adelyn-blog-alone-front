@@ -2,7 +2,7 @@ import request from '@/utils/request.js'
 
 export function getPage(pageParam) {
     return request({
-        url: '/blogmanager/tag/page',
+        url: '/tag/page',
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
@@ -13,7 +13,7 @@ export function getPage(pageParam) {
 
 export function deleteTag(tagParam) {
     return request({
-        url: '/blogmanager/tag',
+        url: '/tag',
         method: 'delete',
         params: tagParam
     })
@@ -22,7 +22,7 @@ export function deleteTag(tagParam) {
 export function saveTag(tagData) {
     console.log(tagData)
     return request({
-        url: 'blogmanager/tag',
+        url: '/tag',
         method: 'post',
         data: tagData
     })
@@ -31,7 +31,7 @@ export function saveTag(tagData) {
 export function updateTag(tagData) {
     console.log(tagData)
     return request({
-        url: 'blogmanager/tag',
+        url: '/tag',
         method: 'put',
         data: tagData
     })
