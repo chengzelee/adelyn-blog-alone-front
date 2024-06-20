@@ -11,16 +11,15 @@ export function getPage(pageParam) {
     })
 }
 
-export function deleteTag(tagParam) {
+export function deleteTag(tagData) {
     return request({
         url: '/tag',
         method: 'delete',
-        params: tagParam
+        data: tagData
     })
 }
 
 export function saveTag(tagData) {
-    console.log(tagData)
     return request({
         url: '/tag',
         method: 'post',
@@ -29,7 +28,6 @@ export function saveTag(tagData) {
 }
 
 export function updateTag(tagData) {
-    console.log(tagData)
     return request({
         url: '/tag',
         method: 'put',

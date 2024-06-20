@@ -11,7 +11,6 @@ import * as authUtil from '@/utils/auth.js'
 
 onMounted(() => {
   setInterval(() => {
-    console.log(authUtil.getRefreshToken())
     if (null != authUtil.getRefreshToken()) {
       console.log("refresh token pair")
       authApi.refreshAccessToken({ refreshToken: authUtil.getRefreshToken() }).then(
@@ -21,7 +20,7 @@ onMounted(() => {
           }
       )
     }
-  }, 290000)
+  }, 10 * 1000)
 });
 
 onUnmounted(() => {

@@ -92,7 +92,7 @@ const init = {
     ossApi.uploadPic(formData).then(
         (res) => {
           let picId = res
-          resolve("http://127.0.0.1:9099/blog/resource/public/pic/" + picId)
+          resolve("https://blog.adelyn.cn/blog-backend/pic/public/" + picId)
           picIdList.value.push(picId)
         }
     )

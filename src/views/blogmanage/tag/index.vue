@@ -122,7 +122,7 @@ const saveTag = () => {
 }
 
 const deleteTag = (tagId) => {
-  tagApi.deleteTag({ tagId: tagId}).then(
+  tagApi.deleteTag( [tagId] ).then(
       () => {
         getPage()
       }

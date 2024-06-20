@@ -6,9 +6,9 @@ import JSONBIG from 'json-bigint'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: '/blog', // url = base url + request url
+  baseURL: '/blog-backend', // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 10000 // request timeout
 })
 
 // 解决vue处理16位以上数字丢失精度问题
@@ -45,7 +45,7 @@ service.interceptors.response.use(
 
     if (res.code === '200') {
         return Promise.resolve(res.data)
-    } else if (res.code === '006') {
+    } else if (res.code === '401') {
         router.push({ path: '/login' })
     } else {
         ElMessage.error(res.msg)

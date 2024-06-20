@@ -5,11 +5,12 @@ services:
     container_name: adelyn-blog-frontend
     privileged: true
     volumes:
-      - /docker/apps/blog/frontend/www.adelyn.cn.pem:/usr/local/nginx/conf/cert.pem
-      - /docker/apps/blog/frontend/www.adelyn.cn.key:/usr/local/nginx/conf/cert.key
+      - /docker/cert/blog.adelyn.cn.pem:/usr/local/nginx/conf/cert.pem
+      - /docker/cert/blog.adelyn.cn.key:/usr/local/nginx/conf/cert.key
     ports:
       - "443:443"
     restart: always
+
 networks:
   default:
     external:

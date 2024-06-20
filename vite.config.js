@@ -14,13 +14,13 @@ export default defineConfig({
   // 配置前端服务地址和端口 只有本地运行的时候才需要
   server: {
     host: '127.0.0.1',
-    port: 8888,
+    port: 443,
     // 是否开启 https
     https: false,
     // 设置反向代理，解决跨域问题
     proxy: {
-      '/blog': {
-        target: 'http://127.0.0.1:9099',
+      '/blog-backend': {
+        target: 'https://127.0.0.1:9099',
         changeOrigin: true,
         secure: false,
       },
