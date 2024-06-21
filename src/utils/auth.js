@@ -1,24 +1,22 @@
-import Cookies from 'js-cookie'
-
 const accessTokenKey = 'adelyn-blog-accessToken'
 const refreshTokenKey = 'adelyn-blog-refreshToken'
 
 export function getAccessToken() {
-  return Cookies.get(accessTokenKey)
+  return sessionStorage.getItem(accessTokenKey)
 }
 
 export function setAccessToken(token) {
-  return Cookies.set(accessTokenKey, token)
+  return sessionStorage.setItem(accessTokenKey, token)
 }
 
 export function getRefreshToken() {
-  return Cookies.get(refreshTokenKey)
+  return sessionStorage.getItem(refreshTokenKey)
 }
 
 export function setRefreshToken(token) {
-  return Cookies.set(refreshTokenKey, token)
+  return sessionStorage.setItem(refreshTokenKey, token)
 }
 
 export function removeAllToken() {
-  return Cookies.remove(accessTokenKey) &&  Cookies.remove(refreshTokenKey)
+  return sessionStorage.clear()
 }

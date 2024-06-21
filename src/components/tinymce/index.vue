@@ -60,7 +60,7 @@ toolbar: {
 
 const init = {
   // width: 720,
-  height: 400,
+  height: 4000,
   language_url: '/tinymce/langs/zh-Hans.js',
   language: 'zh-Hans',
   // 皮肤：这里引入的是public下的资源文件
