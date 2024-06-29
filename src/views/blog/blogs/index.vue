@@ -76,12 +76,17 @@ const getPage = () => {
   } else {
     let page = {
       pageNum: pagination.value.currentPage,
-      pageSize: pagination.value.pageSize
+      pageSize: pagination.value.pageSize,
+      pageOrderList: [
+        {
+          column: 'updateTime',
+          asc: false
+        }
+      ]
     }
 
     blogApi.getPage({pageDTO: page}).then(
         (res) => {
-          console.log(res)
           pagination.value.totalCount = res.total
           blogList.value = res.list
         }
