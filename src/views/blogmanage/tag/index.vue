@@ -78,7 +78,13 @@ const pagination = ref()
 const getPage = () => {
   let page = {
     pageNum: pagination.value.currentPage,
-    pageSize: pagination.value.pageSize
+    pageSize: pagination.value.pageSize,
+    pageOrderList : [
+      {
+        "column": "updateTime",
+        "asc": false
+      }
+    ]
   }
 
   tagApi.getPage({pageDTO: page}).then(

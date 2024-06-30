@@ -93,6 +93,12 @@ const getPage = () => {
     let page = {
       pageNum: pagination.value.currentPage,
       pageSize: pagination.value.pageSize,
+      pageOrderList : [
+        {
+          "column": "updateTime",
+          "asc": false
+        }
+      ]
     }
 
     let blogQueryDTO = {
@@ -130,8 +136,7 @@ const blogContent = (blogId) => {
   router.push({
     path: '/blogContent',
     query: {
-      blogId: blogId,
-      isUser: "true"
+      blogId: blogId
     }
   })
 }

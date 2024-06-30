@@ -77,10 +77,10 @@ const getPage = () => {
     let page = {
       pageNum: pagination.value.currentPage,
       pageSize: pagination.value.pageSize,
-      pageOrderList: [
+      pageOrderList : [
         {
-          column: 'updateTime',
-          asc: false
+          "column": "updateTime",
+          "asc": false
         }
       ]
     }
