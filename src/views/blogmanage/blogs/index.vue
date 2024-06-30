@@ -28,7 +28,7 @@
               </div>
               <div class="card-body">
                 <el-tag
-                    v-for="tag in blog.blogTagList"
+                    v-for="tag in blog.blogTagInfoList"
                     :key="tag.tagId"
                     class="mx-1 tag-box"
                     :type="''"
