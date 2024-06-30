@@ -7,7 +7,7 @@ import JSONBIG from 'json-bigint'
 // create an axios instance
 const service = axios.create({
   baseURL: '/blog-backend', // url = base url + request url
-  // withCredentials: true, // send cookies when cross-domain requests
+  withCredentials: false, // 发请求时不带cookie
   timeout: 10000 // request timeout
 })
 
