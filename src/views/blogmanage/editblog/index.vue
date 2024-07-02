@@ -124,20 +124,9 @@ const openTagSelectForm = () => {
   // 记录一下选择之前的值，这样取消选择后可以还原
   originSelectedTagList.value = selectedTagList.value
 
-  let pageDTO = {
-    pageNum: 1,
-    pageSize: 50,
-    pageOrderList: [
-        {
-          column: 'tagId',
-          asc: false
-        }
-    ]
-  }
-
-  tagApi.getPage({ pageDTO }).then(
+  tagApi.getAllTags().then(
       (res) => {
-        tagList.value = res.list
+        tagList.value = res
       }
   )
 }

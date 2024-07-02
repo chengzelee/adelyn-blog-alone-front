@@ -87,7 +87,7 @@ const getPage = () => {
     ]
   }
 
-  tagApi.getPage({pageDTO: page}).then(
+  tagApi.getPageWithBlogNum({pageDTO: page} ).then(
       (res) => {
         pagination.value.totalCount = res.total
         tagList.value = res.list
