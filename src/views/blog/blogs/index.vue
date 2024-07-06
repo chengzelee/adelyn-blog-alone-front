@@ -95,6 +95,11 @@ const getPage = () => {
 }
 
 const searchBlog = () => {
+  // 空文本不检索
+  if (searchString.value.trim().length === 0) {
+    return
+  }
+
   let searchBlogDTO = {
     from: pagination.value.currentPage,
     size: pagination.value.pageSize,
