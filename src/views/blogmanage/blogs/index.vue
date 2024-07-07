@@ -64,12 +64,28 @@ import { Search } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import * as searchApi from '@/api/common/search.js'
 import * as blogManageApi from '@/api/blogmanage/blog.js'
+import * as authApi from '@/api/common/auth.js'
 import {useRouter} from "vue-router";
+import {setAccessToken, setRefreshToken} from "@/utils/auth";
 
 const searchString = ref('')
 const isSearch = ref(false)
 
 onMounted(() => {
+  const router = useRouter()
+  const authCode = router.currentRoute.value.query.authCode;
+  if (authCode != null) {
+    authApi.getTokenByAuthCode({ authCode : authCode }).then(
+        (res) => {
+          setAccessToken(res.accessToken)
+          setRefreshToken(res.refreshToken)
+          isSearch.value = false
+          getPage()
+        }
+    )
+    return
+  }
+
   isSearch.value = false
   getPage()
 })

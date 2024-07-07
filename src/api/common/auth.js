@@ -1,8 +1,16 @@
 import request from '@/utils/request.js'
 
-export function login(userInfo) {
+export function getTokenByAuthCode(param) {
     return request({
-        url: '/auth/public/login',
+        url: '/auth/token/getToken/public',
+        method: 'get',
+        params: param
+    })
+}
+
+export function passwordLogin(userInfo) {
+    return request({
+        url: '/auth/login/password/public',
         method: 'post',
         data: userInfo
     })

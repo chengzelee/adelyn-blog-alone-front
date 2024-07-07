@@ -7,7 +7,7 @@ import JSONBIG from 'json-bigint'
 // create an axios instance
 const service = axios.create({
   baseURL: '/blog-backend', // url = base url + request url
-  withCredentials: false, // 发请求时不带cookie
+  withCredentials: false, // 发跨域请求时不带cookie
   timeout: 10000 // request timeout
 })
 
@@ -46,7 +46,9 @@ service.interceptors.response.use(
     if (res.code === '200') {
         return Promise.resolve(res.data)
     } else if (res.code === '401') {
-        router.push({ path: '/login' })
+        // 防止死循环
+        authUtil.removeAllToken()
+        window.location.href = res.data
     } else {
         ElMessage.error(res.msg)
     }
