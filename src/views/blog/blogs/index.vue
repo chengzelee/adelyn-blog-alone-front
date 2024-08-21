@@ -112,6 +112,9 @@ const searchBlog = () => {
         blogList.value = res.list
       }
   )
+
+  isSearch.value = true
+
 }
 
 const blogContent = (blogId) => {

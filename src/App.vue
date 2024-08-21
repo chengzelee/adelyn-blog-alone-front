@@ -11,7 +11,7 @@ import * as authUtil from '@/utils/auth.js'
 
 onMounted(() => {
   setInterval(() => {
-    if (null != authUtil.getRefreshToken()) {
+    if (authUtil.getRefreshToken().length === 0) {
       authApi.refreshAccessToken({ refreshToken: authUtil.getRefreshToken() }).then(
           (res) => {
             authUtil.setAccessToken(res.accessToken)
