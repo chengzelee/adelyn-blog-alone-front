@@ -16,10 +16,11 @@ onMounted(() => {
           (res) => {
             authUtil.setAccessToken(res.accessToken)
             authUtil.setRefreshToken(res.refreshToken)
+            console.log('refresh token success')
           }
       )
     }
-  }, 300000)
+  }, 2000000)
 });
 
 onUnmounted(() => {

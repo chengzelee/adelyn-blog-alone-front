@@ -18,6 +18,11 @@ const router = createRouter({
           path: '/blogContent',
           component: () => import('@/views/blog/blogs/blogContent.vue')
         },
+        {
+          path: '/transfile',
+          name: 'transfile',
+          component: () => import('@/views/common/transfile/index.vue')
+        },
       ],
     },
     {
@@ -42,7 +47,12 @@ const router = createRouter({
           path: '/manage/addblog',
           meta: { keepAlive: true },// 需要被缓存
           component: () => import('@/views/blogmanage/editblog/index.vue')
-        }
+        },
+        {
+          path: '/transfile',
+          name: 'transfileInManage',
+          component: () => import('@/views/common/transfile/index.vue')
+        },
       ]
     }
   ]
