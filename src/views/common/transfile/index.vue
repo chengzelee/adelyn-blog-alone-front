@@ -21,6 +21,7 @@
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-progress="handleProgress"
+          :before-upload="beforeUpload"
           :file-list="fileList"
           :drag="true"
           :multiple="true"
@@ -41,8 +42,9 @@
 <script setup>
 import * as transFileApi from '@/api/transfile/transfile.js'
 import {onMounted, ref, watch} from "vue";
-import {ElMessage} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 import * as authUtil from '@/utils/auth.js'
+import * as blogManageApi from "@/api/blogmanage/blog";
 
 const transCode = ref('')
 const fileList = ref([])
@@ -57,10 +59,7 @@ onMounted(() => {
 })
 
 watch(transCode, (newValue, oldValue) => {
-  if (newValue !== '') {
-    getFileList()
-    generateTransCodeDisabled.value = false
-  }
+  getFileList()
 });
 
 const generateTransCode = () => {
@@ -72,7 +71,28 @@ const generateTransCode = () => {
       )
 }
 
+// before-upload 函数，用于校验文件大小
+const beforeUpload = (file) => {
+  // 校验传输码
+  if (transCode.value.trim() === '') {
+    ElMessage.error("请填写传输码")
+    return false
+  }
+
+  // 校验大小
+  let isLt100M = file.size / 1024 / 1024 < 100; // 将字节转换为MB进行比较
+
+  if (!isLt100M) {
+    ElMessage.error('受cloudflare限制,上传文件大小不能超过 100MB!');
+    return false
+  }
+
+  return true
+};
+
+
 const uploadFile = ( {file} ) => {
+  // 传输
   let formData = new FormData()
   formData.append('transCode', transCode.value)
   formData.append('file', file)
@@ -85,7 +105,6 @@ const uploadFile = ( {file} ) => {
     // 重新请求，把fileId塞进去 组件默认的没有
     getFileList()
   }).catch(error => {
-    ElMessage.error("上传失败")
     uploadProgress.value = 0;  // 上传完成后重置进度条
     // 重新请求，把fileId塞进去 组件默认的没有
     getFileList()
@@ -98,6 +117,12 @@ const handleProgress = (event, file, fileList) => {
 
 
 const getFileList = () => {
+  if (transCode.value.trim() === '') {
+    ElMessage.error("请填写传输码")
+    fileList.value = []
+    return
+  }
+
   transFileApi.getTransFileList({ transCode: transCode.value })
       .then(
           (res) => {
@@ -124,6 +149,15 @@ const handlePreview = (file) => {
 }
 
 const handleRemove = (file, fileList) => {
+  // beforeUpload 检查没过，会调handleRemove 删除，此时fileId不存在
+  if (!file.fileId) {
+    // 但是填了传输码的情况下还是要有值
+    if (transCode.value.trim() !== '') {
+      getFileList()
+    }
+    return
+  }
+
   transFileApi.deleteFile({ transCode: transCode.value, fileId: file.fileId})
       .then(
           () => {
