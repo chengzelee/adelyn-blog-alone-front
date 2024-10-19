@@ -1,5 +1,5 @@
 <template>
-  <el-row type="flex" justify="center" class="transfile-el-row-bottom-space">
+  <el-row type="flex" justify="center" :gutter="10" class="transfile-el-row-bottom-space">
     <el-col :span="11">
       <el-input
           placeholder="请输入传输码"
@@ -8,11 +8,14 @@
       </el-input>
     </el-col>
     <el-col :span="1">
+      <el-button type="primary" @click="getFileList">确认</el-button>
+    </el-col>
+    <el-col :span="1">
       <el-button type="primary" v-if="generateTransCodeDisabled" @click="generateTransCode">生成传输码</el-button>
     </el-col>
   </el-row>
   <el-row type="flex" justify="center" class="transfile-el-row-bottom-space">
-    <el-col :span="12">
+    <el-col :span="20">
       <el-upload
           class="upload-demo"
           ref="upload"
@@ -57,10 +60,6 @@ onMounted(() => {
     generateTransCodeDisabled.value = true
   }
 })
-
-watch(transCode, (newValue, oldValue) => {
-  getFileList()
-});
 
 const generateTransCode = () => {
   transFileApi.generateTransCode()
